@@ -10,13 +10,11 @@ This script
 1. Merges the training and the test sets to create one data set.
 2. Extracts only the measurements on the mean and standard deviation for each measurement.
 3. Uses descriptive activity names to name the activities in the data set
-4. Appropriately labels the data set with descriptive variable names.
-5. From the data set in step 4, creates a second, independent tidy data set with the average
-   of each variable for each activity and each subject.
+4. Writes the resulting data set to file "tidy-data.txt" in the current working directory.
 
 Assumptions
 -----------
-The data files are all in a 'UCI HAR Dataset' directory of the current working directory, like this:<br/>
+The data files are all in a 'UCI HAR Dataset' sub-directory of the current working directory, like this:<br/>
 UCI HAR Dataset/README.txt<br/>
 UCI HAR Dataset/activity_labels.txt<br/>
 UCI HAR Dataset/features.txt<br/>
@@ -32,10 +30,10 @@ UCI HAR Dataset/train/y_test.txt<br/>
 
 Usage
 -----
-Run directly from the command line, which outputs on stdout:<br/>
+Run directly from the command line, which displays status on stdout:<br/>
 $ ./run_analysis.R<br/>
 -or-<br/>
-Run with R's batch command, which outputs to file run_analysis.Rout:<br/>
+Run with R's batch command, which routes stdout to file run_analysis.Rout:<br/>
 $ r CMD BATCH run_analysis.R
 
 Steps in the analysis
