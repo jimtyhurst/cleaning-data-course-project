@@ -38,12 +38,12 @@ $ r CMD BATCH run_analysis.R
 
 Steps in the analysis
 ---------------------
-(1) Load Testing and Training tables.
-(2) Concatenate the rows of the Testing and Training tables.
-(3) Use feature names as column names.
-(4) Limit columns to -mean()- and -std()- variables.
-(5) Use activity labels as column 1.
-(6) Write the results to a file.
+1. Load Testing and Training tables.
+2. Concatenate the rows of the Testing and Training tables.
+3. Use feature names as column names.
+4. Limit columns to -mean()- and -std()- variables.
+5. Use activity labels as column 1.
+6. Write the results to a file.
 
 Acknowledgements
 ----------------
