@@ -1,11 +1,14 @@
 data/
+data-source/
 
 # Output files
 *.Rout
 
 # RStudio files
 .Rproj.user/
+.Rhistory
 project.Rproj
 
 # Mac files
 .DS_Store
+.Rproj.user
