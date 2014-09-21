@@ -1,5 +1,5 @@
-data/
 data-source/
+UCI HAR Dataset/
 
 # Output files
 *.Rout

@@ -13,19 +13,19 @@
 #    of each variable for each activity and each subject.
 
 # Assumptions
-# The data files are all in a 'data' directory of the current working directory, like this:
-# data/README.txt
-# data/activity_labels.txt
-# data/features.txt
-# data/features_info.txt
-# data/test/Inertial Signals/
-# data/test/X_test.txt
-# data/test/subject_test.txt
-# data/test/y_test.txt
-# data/train/Inertial Signals/
-# data/train/X_test.txt
-# data/train/subject_test.txt
-# data/train/y_test.txt
+# The data files are all in a 'UCI HAR Dataset' directory of the current working directory, like this:
+# UCI HAR Dataset/README.txt
+# UCI HAR Dataset/activity_labels.txt
+# UCI HAR Dataset/features.txt
+# UCI HAR Dataset/features_info.txt
+# UCI HAR Dataset/test/Inertial Signals/
+# UCI HAR Dataset/test/X_test.txt
+# UCI HAR Dataset/test/subject_test.txt
+# UCI HAR Dataset/test/y_test.txt
+# UCI HAR Dataset/train/Inertial Signals/
+# UCI HAR Dataset/train/X_test.txt
+# UCI HAR Dataset/train/subject_test.txt
+# UCI HAR Dataset/train/y_test.txt
 
 # Usage:
 # Run directly from the command line, which outputs on stdout:
@@ -41,10 +41,31 @@
 #   Vitoria-Gasteiz, Spain. Dec 2012
 
 print("Running analysis ...", quote=FALSE)
+library(plyr)
+
 # Load Testing and Training tables.
-x_test <- read.table("data/UCI HAR Dataset/test/X_test.txt")
-y_test <- read.table("data/UCI HAR Dataset/test/y_test.txt")
-x_train <- read.table("data/UCI HAR Dataset/train/X_train.txt")
-y_train <- read.table("data/UCI HAR Dataset/train/y_train.txt")
+x_test <- read.table("UCI HAR Dataset/test/X_test.txt")
+y_test <- read.table("UCI HAR Dataset/test/y_test.txt")
+x_train <- read.table("UCI HAR Dataset/train/X_train.txt")
+y_train <- read.table("UCI HAR Dataset/train/y_train.txt")
+
+# Concatenate the rows of the Testing and Training tables.
+x_combined <- rbind(x_test, x_train);
+y_combined <- rbind(y_test, y_train);
+
+# Use feature names as column names.
+features <- read.table("UCI HAR Dataset/features.txt")
+colnames(x_combined) <- features[,2]
+
+# Limit columns to -mean()- and -std()- variables.
+analyzed_samples <- x_combined[,grep('(-mean\\(\\)-)|(-std\\(\\)-)',names(x_combined))]
+
+# Use activity labels as column 1.
+activity_factor <- factor(y_combined[,1])
+activity <- revalue(activity_factor, c("1"="WALKING", "2"="WALKING_UPSTAIRS", "3"="WALKING_DOWNSTAIRS", "4"="SITTING", "5"="STANDING", "6"="LAYING"))
+labeled_samples <- cbind(activity, analyzed_samples)
+
+# Save the results
+write.table(labeled_samples, file="tidy-data.txt", row.names=FALSE)
 
 print("Completed analysis.", quote=FALSE)
